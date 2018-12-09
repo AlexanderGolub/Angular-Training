@@ -1,8 +1,17 @@
+:host {
+  display: flex;
+  flex-grow: 1;
+  padding-bottom: 40px;
+  overflow-x: hidden;
+}
+
 .root {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  margin-right: -15px;
   padding: 10px 20px 0;
+  overflow: auto;
 }
 
 .utility-area {
@@ -26,6 +35,7 @@
 }
 
 .main-area button {
+  flex-shrink: 0;
   margin: 15px 0;
   width: 100%;
 }

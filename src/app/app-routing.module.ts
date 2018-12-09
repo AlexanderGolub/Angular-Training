@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+import { CoursesPageComponent } from './courses-page/courses-page/courses-page.component';
+
+const routes: Routes = [
+  {
+    path: 'courses',
+    component: CoursesPageComponent,
+    data: { title: 'Courses List' }
+  },
+  { path: '',
+    redirectTo: '/courses',
+    pathMatch: 'full'
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

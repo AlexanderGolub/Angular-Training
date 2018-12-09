@@ -12,4 +12,8 @@ export class AuthButtonsComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClick() {
+    console.log('Log Off');
+  }
+
 }
