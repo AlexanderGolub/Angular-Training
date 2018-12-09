@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  align-items: center;
+}
+
+.root .icon {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  background-color: var(--color-paper-white);
+}
+
+.root p {
+  margin: 0;
+}
