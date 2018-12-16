@@ -4,10 +4,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CourseComponent } from './course.component';
 import { Course } from '../../course';
 
+const dateString = '2000-01-01';
+const durationString = '0h 1min';
 const defaultCourse : Course = {
   id: 'Course1',
   title: 'Course 1',
-  creationDate : new Date('2000-01-01'),
+  creationDate : new Date(dateString),
   duration: 1,
   description: 'Test desc'
 };
@@ -42,6 +44,18 @@ describe('CourseComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`shows correct duration`, () => {
+    const creationDateElement : HTMLElement = fixture.nativeElement.querySelector('.duration');
+
+    expect(creationDateElement.textContent).toBe(durationString);
+  });
+
+  it(`shows correct creation date`, () => {
+    const creationDateElement : HTMLElement = fixture.nativeElement.querySelector('.creation-date');
+
+    expect(creationDateElement.textContent).toBe(dateString);
   });
 
   it(`emits 'delete' event`, () => {
