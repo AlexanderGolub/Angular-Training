@@ -1,0 +1,12 @@
+<div class="input-group input-group-sm">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Text to search"
+    aria-label="Text to search"
+    aria-describedby="button-addon2"
+    [(ngModel)]="searchQuery" >
+  <div class="input-group-append">
+    <button class="btn btn-outline-primary" type="button" id="button-addon2" (click)="onSearch()">Search</button>
+  </div>
+</div>

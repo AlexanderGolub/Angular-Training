@@ -1,3 +1,24 @@
-<p>
-  course works!
-</p>
+<div class="root">
+  <div class="course">
+    <div class="header">
+      <h5>{{course.title}}</h5>
+      <div class="info">
+        <span class="duration">{{(course.duration / 60).toFixed(0)}}h {{course.duration % 60}}min</span>
+        <span class="creation-date">{{course.creationDate.toISOString().slice(0, 10)}}</span>
+      </div>
+    </div>
+    <p class="description">
+      {{course.description}}
+    </p>
+  </div>
+  <div class="actions">
+      <button type="button" class="btn btn-primary btn-sm" (click)="onEdit()">
+        <div class="icon"></div>
+        <p>Edit</p>
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" (click)="onDelete()">
+        <div class="icon"></div>
+        <p>Delete</p>
+      </button>
+  </div>
+</div>

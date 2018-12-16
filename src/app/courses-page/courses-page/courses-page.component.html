@@ -1,3 +1,12 @@
-<p>
-  courses-page works!
-</p>
+<div class="root">
+  <div class="utility-area">
+    <app-search></app-search>
+    <app-new-course></app-new-course>
+  </div>
+  <div class="main-area">
+    <ul class="courses-list">
+      <app-course *ngFor="let course of courses" [course]="course" (delete)="deleteCourse($event)"></app-course>
+    </ul>
+    <button type="button" class="btn btn-outline-secondary" (click)="loadCourses()">LOAD MORE</button>
+  </div>
+</div>

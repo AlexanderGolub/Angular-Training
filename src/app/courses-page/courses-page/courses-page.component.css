@@ -1,0 +1,41 @@
+:host {
+  display: flex;
+  flex-grow: 1;
+  padding-bottom: 40px;
+  overflow-x: hidden;
+}
+
+.root {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  margin-right: -15px;
+  padding: 10px 20px 0;
+  overflow: auto;
+}
+
+.utility-area {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 18px;
+}
+
+.main-area {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.courses-list {
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.main-area button {
+  flex-shrink: 0;
+  margin: 15px 0;
+  width: 100%;
+}

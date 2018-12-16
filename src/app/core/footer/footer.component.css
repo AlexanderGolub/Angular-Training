@@ -1,0 +1,11 @@
+.root {
+  height: 40px;
+  margin: 0;
+  padding: 0 10px;
+  border-top: 1px solid var(--gray);
+  background-color: var(--color-paper-white);
+  font-size: 14px;
+  line-height: 40px;
+  text-align: right;
+  vertical-align: middle;
+}
