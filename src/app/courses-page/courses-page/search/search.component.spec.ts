@@ -24,4 +24,14 @@ describe('SearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(`binds 'searchQuery' to input`, () => {
+    const searchQuery : string = 'text to search';
+    const inputElement : HTMLInputElement = <HTMLInputElement>fixture.nativeElement.querySelector('.form-control');
+
+    inputElement.value = searchQuery;
+    inputElement.dispatchEvent(new Event('input'));
+
+    expect(component.searchQuery).toBe(searchQuery);
+  });
 });
