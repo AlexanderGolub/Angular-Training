@@ -18,21 +18,21 @@ export class CoursesPageComponent implements OnInit {
       {
         id: 'Course1',
         title: 'Video Course 1',
-        creationDate : new Date('2018-05-29'),
+        creationDate : new Date('2019-05-29'),
         duration: 88,
         description
       },
       {
         id: 'Course2',
         title: 'Video Course 2',
-        creationDate: new Date('2018-06-10'),
+        creationDate: new Date('2018-12-14'),
         duration: 27,
         description
       },
       {
         id: 'Course3',
         title: 'Video Course 3',
-        creationDate: new Date('2018-07-16'),
+        creationDate: new Date('2019-07-16'),
         duration: 46,
         description
       },
