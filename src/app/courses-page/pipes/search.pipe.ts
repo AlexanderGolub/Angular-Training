@@ -1,14 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Course } from '../course';
 
 @Pipe({
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
 
-  transform(courses: Course[], propertyToSearch: string, query: string): Course[] {
+  transform(courses: any[], property: string, query: string): any[] {
     return courses.filter((course) => {
-      return course[propertyToSearch].toString().toLowerCase().includes(query.toLowerCase());
+      return course[property].toString().toLowerCase().includes(query.toLowerCase());
     });
   }
 
