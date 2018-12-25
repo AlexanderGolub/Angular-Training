@@ -21,9 +21,21 @@
   justify-content: space-between;
 }
 
-.header h5 {
+.title {
   color: var(--blue);
   margin: 0;
+}
+
+.top-rated {
+  position: relative;
+}
+
+.top-rated::after {
+  content: '\2605';
+  position: absolute;
+  right: -25px;
+  top: -3px;
+  color: #EAC501;
 }
 
 .duration {

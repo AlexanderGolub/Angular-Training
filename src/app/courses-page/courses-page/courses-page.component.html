@@ -3,10 +3,13 @@
     <app-search></app-search>
     <app-new-course></app-new-course>
   </div>
-  <div class="main-area">
+  <div *ngIf="courses.length" class="main-area">
     <ul class="courses-list">
       <app-course *ngFor="let course of courses" [course]="course" (delete)="deleteCourse($event)"></app-course>
     </ul>
     <button type="button" class="btn btn-outline-secondary" (click)="loadCourses()">LOAD MORE</button>
+  </div>
+  <div *ngIf="!courses.length" class="no-data-message">
+    <span>NO COURSES AVAILABLE</span>
   </div>
 </div>
