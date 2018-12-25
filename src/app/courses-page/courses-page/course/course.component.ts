@@ -13,7 +13,6 @@ export class CourseComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.course.id);
   }
 
   onEdit() {

@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../course';
+import { SearchPipe } from '../pipes/search.pipe';
 
 @Component({
   selector: 'app-courses-page',
   templateUrl: './courses-page.component.html',
-  styleUrls: ['./courses-page.component.css']
+  styleUrls: ['./courses-page.component.css'],
+  providers: [ SearchPipe ]
 })
 export class CoursesPageComponent implements OnInit {
   courses : Course[] = [];
+  coursesToShow : Course[] = [];
 
-  constructor() { }
+  constructor(private search: SearchPipe) { }
 
   ngOnInit() {
     const description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus enim provident minima quos itaque tempora molestias
@@ -40,34 +43,40 @@ export class CoursesPageComponent implements OnInit {
         topRated: true,
       },
       {
-        id: 'Course1',
-        title: 'Video Course 1',
+        id: 'Course4',
+        title: 'Video Course 4',
         creationDate : new Date('2018-05-29'),
         duration: 88,
         description,
         topRated: false,
       },
       {
-        id: 'Course2',
-        title: 'Video Course 2',
+        id: 'Course5',
+        title: 'Video Course 5',
         creationDate: new Date('2018-06-10'),
         duration: 27,
         description,
         topRated: false,
       },
       {
-        id: 'Course3',
-        title: 'Video Course 3',
+        id: 'Course6',
+        title: 'Video Course 6',
         creationDate: new Date('2018-07-16'),
         duration: 46,
         description,
         topRated: true,
       }
     ];
+
+    this.coursesToShow = this.courses;
   }
 
   loadCourses() {
     console.log('LOAD MORE');
+  }
+
+  searchCourses(searchQuery : string) {
+    this.coursesToShow = this.search.transform(this.courses, 'title', searchQuery);
   }
 
   deleteCourse(courseId : string) {

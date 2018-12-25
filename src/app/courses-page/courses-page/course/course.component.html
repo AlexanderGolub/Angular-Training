@@ -1,10 +1,10 @@
 <div [appCourseBorder]="course.creationDate" class="root">
   <div class="course">
     <div class="header">
-      <h5 class="title" [ngClass]="{'top-rated': course.topRated}">{{course.title}}</h5>
+      <h5 class="title" [ngClass]="{'top-rated': course.topRated}">{{course.title | uppercase}}</h5>
       <div class="info">
-        <span class="duration">{{(course.duration / 60) | number:"1.0-0"}}h {{course.duration % 60}}min</span>
-        <span class="creation-date">{{course.creationDate | date: "yyyy-MM-dd"}}</span>
+        <span class="duration">{{course.duration | duration}}</span>
+        <span class="creation-date">{{course.creationDate | date: "dd-MM-yyyy"}}</span>
       </div>
     </div>
     <p class="description">
