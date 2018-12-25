@@ -83,5 +83,6 @@ export class CoursesPageComponent implements OnInit {
     const index : number = this.courses.findIndex((course : Course) =>  course.id === courseId);
 
     this.courses.splice(index, 1);
+    this.coursesToShow = this.courses;
   }
 }
