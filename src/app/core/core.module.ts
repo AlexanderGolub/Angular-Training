@@ -5,6 +5,8 @@ import { FooterComponent } from './footer/footer.component';
 import { LogoComponent } from './header/logo/logo.component';
 import { AuthButtonsComponent } from './header/auth-buttons/auth-buttons.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, NavigationComponent, LogoComponent, AuthButtonsComponent],
@@ -15,6 +17,10 @@ import { NavigationComponent } from './navigation/navigation.component';
     HeaderComponent,
     FooterComponent,
     NavigationComponent
+  ],
+  providers: [
+    AuthService,
+    AuthGuard
   ]
 })
 export class CoreModule { }
