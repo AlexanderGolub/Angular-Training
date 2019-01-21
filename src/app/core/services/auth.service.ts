@@ -22,7 +22,7 @@ export class AuthService {
     }
   }
 
-  logIn(login, password) {
+  logIn(login: string, password: string): boolean {
     if (login && password) {
       this.userInfo = {
         login: login,
@@ -31,7 +31,11 @@ export class AuthService {
       this.isUserAuthenticated = true;
 
       window.localStorage.setItem(storageKey, JSON.stringify(this.userInfo));
+
+      return true;
     }
+
+    return false;
   }
 
   logOut() {
