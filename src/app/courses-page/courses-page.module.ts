@@ -9,6 +9,7 @@ import { CourseBorderDirective } from './directives/course-border.directive';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { CoursesService } from './services/courses.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,9 @@ import { SearchPipe } from './pipes/search.pipe';
   ],
   exports: [
     CoursesPageComponent
+  ],
+  providers: [
+    CoursesService
   ]
 })
 export class CoursesPageModule { }

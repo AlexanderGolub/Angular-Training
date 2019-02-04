@@ -1,4 +1,4 @@
-<div class="root">
-  <p>User Login</p>
+<div *ngIf="userLogin" class="root">
+  <p>{{userLogin}}</p>
   <button #logOff type="button" class="btn btn-primary" (click)="onClick()">Log Off</button>
 </div>
