@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./auth-buttons.component.css']
 })
 export class AuthButtonsComponent implements OnInit {
-  private userLogin: string;
+  public userLogin: string;
 
   constructor(private authService: AuthService) { }
 
