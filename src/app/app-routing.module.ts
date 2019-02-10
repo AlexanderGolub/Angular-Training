@@ -3,9 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CoursesPageComponent } from './courses-page/courses-page/courses-page.component';
 import { LoginPageComponent } from './login-page/login-page/login-page.component';
+import { NewCoursePageComponent } from './courses-page/new-course-page/new-course-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
+  {
+    path: 'courses/new',
+    component: NewCoursePageComponent,
+    data: { title: 'New Course' },
+    canActivate: [
+      AuthGuard
+    ]
+  },
   {
     path: 'courses',
     component: CoursesPageComponent,
