@@ -1,0 +1,8 @@
+.root {
+  padding: 15px 35px;
+}
+
+.buttons-container button {
+  margin-right: 25px;
+  width: 100px;
+}

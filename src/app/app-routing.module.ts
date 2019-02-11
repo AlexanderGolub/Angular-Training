@@ -6,12 +6,21 @@ import { LoginPageComponent } from './login-page/login-page/login-page.component
 import { NewCoursePageComponent } from './courses-page/new-course-page/new-course-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
+import { EditCoursePageComponent } from './courses-page/edit-course-page/edit-course-page.component';
 
 const routes: Routes = [
   {
     path: 'courses/new',
     component: NewCoursePageComponent,
     data: { title: 'New Course' },
+    canActivate: [
+      AuthGuard
+    ]
+  },
+  {
+    path: 'courses/:id',
+    component: EditCoursePageComponent,
+    data: { title: 'Edit Course' },
     canActivate: [
       AuthGuard
     ]
