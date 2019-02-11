@@ -5,6 +5,7 @@ import { CoursesPageComponent } from './courses-page/courses-page/courses-page.c
 import { LoginPageComponent } from './login-page/login-page/login-page.component';
 import { NewCoursePageComponent } from './courses-page/new-course-page/new-course-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
     redirectTo: '/courses',
     pathMatch: 'full',
   },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
