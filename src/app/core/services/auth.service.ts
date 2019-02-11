@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   logOut() {
-    window.localStorage.removeItem(storageKey)
+    return Promise.resolve(window.localStorage.removeItem(storageKey));
   }
 
   isAuthenticated() {

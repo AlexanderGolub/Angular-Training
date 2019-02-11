@@ -29,11 +29,16 @@ const routes: Routes = [
     component: LoginPageComponent,
     data: { title: 'Login' },
   },
-  { path: '',
+  {
+    path: '',
     redirectTo: '/courses',
     pathMatch: 'full',
   },
-  { path: '**', component: PageNotFoundComponent }
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+    data: { title: 'Not Found' },
+  }
 ];
 
 @NgModule({
