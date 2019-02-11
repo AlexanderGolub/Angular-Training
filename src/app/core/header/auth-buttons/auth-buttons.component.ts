@@ -14,7 +14,10 @@ export class AuthButtonsComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.userLogin = this.authService.getUserLogin();
+    this.authService.getUserInfo()
+      .subscribe((userInfo) => {
+        this.userLogin = userInfo.login;
+      });
   }
 
   onClick() {
