@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-  private login: string = 'Default_login';
-  private password: string = 'somepass';
+  public login: string = 'Default_login';
+  public password: string = 'somepass';
 
   constructor(private authService: AuthService, private router: Router) { }
 

@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  private isAuthenticated: boolean = false;
+  public isAuthenticated: boolean = false;
 
   constructor(private authService: AuthService) { }
 

@@ -11,8 +11,4 @@ export class NewCourseComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  onClick() {
-    console.log('Add Course');
-  }
 }
