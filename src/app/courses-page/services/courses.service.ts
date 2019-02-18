@@ -1,75 +1,58 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { v4 as uuid } from 'uuid';
 
 import { Course } from '../course';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-  private _courses: Course[];
+  private _courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
+  private courses: Observable<Course[]> = this._courses.asObservable();
 
-  constructor() {
-    const description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus enim provident minima quos itaque tempora molestias
-    blanditiis quod. Molestias dolores ipsa aut velit voluptatum possimus tempore perferendis natus, non pariatur.`;
-    this._courses = [
-      {
-        id: 'Course1',
-        title: 'Video Course 1',
-        creationDate : new Date('2019-05-29'),
-        duration: 88,
-        description,
-        topRated: false,
-      },
-      {
-        id: 'Course2',
-        title: 'Video Course 2',
-        creationDate: new Date('2018-12-14'),
-        duration: 27,
-        description,
-        topRated: true,
-      },
-      {
-        id: 'Course3',
-        title: 'Video Course 3',
-        creationDate: new Date('2019-07-16'),
-        duration: 46,
-        description,
-        topRated: true,
-      },
-      {
-        id: 'Course4',
-        title: 'Video Course 4',
-        creationDate : new Date('2018-05-29'),
-        duration: 88,
-        description,
-        topRated: false,
-      },
-      {
-        id: 'Course5',
-        title: 'Video Course 5',
-        creationDate: new Date('2018-06-10'),
-        duration: 27,
-        description,
-        topRated: false,
-      },
-      {
-        id: 'Course6',
-        title: 'Video Course 6',
-        creationDate: new Date('2018-07-16'),
-        duration: 46,
-        description,
-        topRated: true,
-      }
-    ];
+  constructor(private http: HttpClient) {
   }
 
-  getCourses(): Course[] {
-    return this._courses;
+  loadCourses(page, limit) {
+    const url = `courses?_page=${page}&_limit=${limit}`;
+
+    this.http.get(url).subscribe((courses: any) => {
+      this._courses.next(
+        this._courses.getValue().concat(courses.map((course) => ({
+          ...course,
+          creationDate: new Date(course.creationDate)
+        })))
+      );
+    });
   }
 
-  getCourseById(id : string): Course {
-    return this._courses.find((course : Course) => course.id === id);
+  getCourses(): Observable<Course[]> {
+    return this.courses;
+  }
+
+  getCourseById(id: string): Observable<Object> {
+    const url = `courses?id=${id}`;
+
+    return this.http.get(url);
+  }
+
+  clearCourses() {
+    this._courses.next([]);
+  }
+
+  searchCourses(query: string, page, limit) {
+    const url = `courses?_page=${page}&_limit=${limit}&q=${query}`;
+
+    this.http.get(url).subscribe((courses: any) => {
+      this._courses.next(
+        this._courses.getValue().concat(courses.map((course) => ({
+          ...course,
+          creationDate: new Date(course.creationDate)
+        })))
+      );
+    });
   }
 
   createCourse(newCourse): void {
