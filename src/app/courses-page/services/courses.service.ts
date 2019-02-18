@@ -55,8 +55,11 @@ export class CoursesService {
     });
   }
 
-  createCourse(newCourse): void {
-    this._courses.push({
+  createCourse(newCourse): Observable<Object> {
+    const url = `courses/`;
+    this.clearCourses();
+
+    return this.http.post(url, {
       id: uuid(),
       title: newCourse.title,
       creationDate: new Date(),
