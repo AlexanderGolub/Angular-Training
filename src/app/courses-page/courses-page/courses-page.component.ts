@@ -15,6 +15,7 @@ export class CoursesPageComponent implements OnInit {
   private currentPage: number = 1;
   private lastPage: number = 2; // should be returned by serve but will suffice for now
   private pageLimit: number = 4;
+  private lastSearchQuery: string = '';
 
   constructor(private search: SearchPipe, private coursesService: CoursesService) { }
 
@@ -38,12 +39,22 @@ export class CoursesPageComponent implements OnInit {
     this.currentPage = 1;               // reset pagination
     this.coursesService.clearCourses(); // clear courses list
 
+    this.lastSearchQuery = searchQuery;
     this.coursesService.searchCourses(searchQuery, this.currentPage, this.pageLimit);
   }
 
   deleteCourse(courseId : string) {
     if (window.confirm('Delete this course?')) {
-      this.coursesService.deleteCourse(courseId);
+      this.currentPage = 1;
+      this.coursesService.clearCourses();
+
+      this.coursesService.deleteCourse(courseId).subscribe(() => {
+        if (this.lastSearchQuery) {
+          this.coursesService.searchCourses(this.lastSearchQuery, this.currentPage, this.pageLimit);
+        } else {
+          this.coursesService.loadCourses(this.currentPage, this.pageLimit);
+        }
+      });
     }
   }
 }
