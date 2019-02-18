@@ -5,7 +5,7 @@
         "title": "Video Course 1",
         "creationDate": "2019-05-29",
         "duration": 88,
-        "description": "Molestias dolores ipsa aut velit voluptatum possimus tempore perferendis natus, non pariatur.",
+        "description": "Molestias dolores ipsa",
         "topRated": false
     },
     {
@@ -13,7 +13,7 @@
         "title": "Video Course 2",
         "creationDate": "2018-12-14",
         "duration": 27,
-        "description": "Molestias dolores ipsa aut velit voluptatum possimus tempore perferendis natus, non pariatur.",
+        "description": "aut velit",
         "topRated": true
     },
     {
@@ -21,7 +21,7 @@
         "title": "Video Course 3",
         "creationDate": "2019-07-16",
         "duration": 46,
-        "description": "Molestias dolores ipsa aut velit voluptatum possimus tempore perferendis natus, non pariatur.",
+        "description": "voluptatum possimus tempore",
         "topRated": true
     },
     {
@@ -29,7 +29,7 @@
         "title": "Video Course 4",
         "creationDate" : "2018-05-29",
         "duration": 88,
-        "description": "Molestias dolores ipsa aut velit voluptatum possimus tempore perferendis natus, non pariatur.",
+        "description": "Molestias voluptatum possimus",
         "topRated": false
     },
     {
@@ -37,7 +37,7 @@
         "title": "Video Course 5",
         "creationDate": "2018-06-10",
         "duration": 27,
-        "description": "Molestias dolores ipsa aut velit voluptatum possimus tempore perferendis natus, non pariatur.",
+        "description": "non pariatur",
         "topRated": false
     },
     {
@@ -45,7 +45,7 @@
         "title": "Video Course 6",
         "creationDate": "2018-07-16",
         "duration": 46,
-        "description": "Molestias dolores ipsa aut velit voluptatum possimus tempore perferendis natus, non pariatur.",
+        "description": "possimus tempore perferendis natus",
         "topRated": true
     }
   ],
