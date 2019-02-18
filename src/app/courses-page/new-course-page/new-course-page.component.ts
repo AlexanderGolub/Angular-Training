@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-course-page',
@@ -11,11 +12,15 @@ export class NewCoursePageComponent {
   date: string = '';
   duration: string = '';
 
+  constructor(private router: Router) {
+  }
+
   onSave() {
     console.log('save', this.title, this.description, this.date, this.duration);
+    this.router.navigate(['courses']);
   }
 
   onCancel() {
-    console.log('cancel');
+    this.router.navigate(['courses']);
   }
 }

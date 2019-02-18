@@ -12,6 +12,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { CoursesService } from './services/courses.service';
 import { RouterModule } from '@angular/router';
+import { EditCoursePageComponent } from './edit-course-page/edit-course-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RouterModule } from '@angular/router';
     DurationPipe,
     OrderByPipe,
     SearchPipe,
-    NewCoursePageComponent
+    NewCoursePageComponent,
+    EditCoursePageComponent
   ],
   imports: [
     CommonModule,

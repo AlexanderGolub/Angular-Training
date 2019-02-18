@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 const storageKey = 'trainingPortalUser';
 
@@ -6,31 +7,37 @@ const storageKey = 'trainingPortalUser';
   providedIn: 'root'
 })
 export class AuthService {
-  private userInfo = {
+  private _userInfo: BehaviorSubject<object> = new BehaviorSubject({
     login: '',
     token: ''
-  };
-  private isUserAuthenticated: boolean = false;
+  });
+  private userInfo: Observable<object> = this._userInfo.asObservable();
+
+  private _isUserAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private isUserAuthenticated: Observable<boolean> = this._isUserAuthenticated.asObservable();
 
   constructor() {
-    this.userInfo = JSON.parse(
+    const userInfo = JSON.parse(
       window.localStorage.getItem(storageKey)
     ) || {};
 
-    if (this.userInfo.token) {
-      this.isUserAuthenticated = true;
+    if (userInfo.token) {
+      this._userInfo.next(userInfo);
+      this._isUserAuthenticated.next(true);
     }
   }
 
   logIn(login: string, password: string): boolean {
     if (login && password) {
-      this.userInfo = {
+      const userInfo = {
         login: login,
         token: btoa(login),
       };
-      this.isUserAuthenticated = true;
 
-      window.localStorage.setItem(storageKey, JSON.stringify(this.userInfo));
+      this._userInfo.next(userInfo);
+      this._isUserAuthenticated.next(true);
+
+      window.localStorage.setItem(storageKey, JSON.stringify(userInfo));
 
       return true;
     }
@@ -39,14 +46,26 @@ export class AuthService {
   }
 
   logOut() {
-    window.localStorage.removeItem(storageKey)
+    this._userInfo.next({
+      login: '',
+      token: '',
+    });
+    this._isUserAuthenticated.next(false);
+
+    return Promise.resolve(
+      window.localStorage.removeItem(storageKey)
+    );
   }
 
-  isAuthenticated() {
+  isAuthenticatedSubscribe(): Observable<boolean> {
     return this.isUserAuthenticated;
   }
 
-  getUserLogin() {
-    return this.userInfo.login;
+  isAuthenticated(): boolean {
+    return this._isUserAuthenticated.getValue();
+  }
+
+  getUserInfo(): Observable<any> {
+    return this.userInfo;
   }
 }
