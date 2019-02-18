@@ -15,13 +15,15 @@ export class LoginPageComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.authService.isAuthenticatedSubscribe()
+      .subscribe((value) => {
+        if (value) {
+          this.router.navigate(['courses']);
+        }
+      });
   }
 
   logIn() {
-    const isLogged = this.authService.logIn(this.login, this.password);
-
-    if (isLogged) {
-      this.router.navigate(['courses']);
-    }
+    this.authService.logIn(this.login, this.password);
   }
 }
