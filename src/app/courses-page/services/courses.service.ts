@@ -69,15 +69,14 @@ export class CoursesService {
     });
   }
 
-  updateCourse(courseInfo: any): boolean {
-    return this._courses.some((course) => {
-      if (course.id === courseInfo.id) {
-        course.title = courseInfo.title;
-        course.duration = courseInfo.duration;
-        course.description = courseInfo.description;
+  updateCourse(courseInfo: any): Observable<Object> {
+    const url = `courses/${courseInfo.id}`;
+    this.clearCourses();
 
-        return true;
-      }
+    return this.http.put(url, {
+      title: courseInfo.title,
+      duration: courseInfo.duration,
+      description: courseInfo.description,
     });
   }
 
