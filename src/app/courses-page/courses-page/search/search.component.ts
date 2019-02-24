@@ -8,9 +8,18 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class SearchComponent {
   @Output() search = new EventEmitter<string>();
 
-  searchQuery : string = '';
+  public searchQuery : string = '';
+  private timeoutId : any;
 
-  onSearch() {
-    this.search.emit(this.searchQuery);
+  onSearch(event) {
+    const searchQuery = event.target.value;
+    this.searchQuery = searchQuery;
+    clearTimeout(this.timeoutId);
+
+    if (searchQuery.length > 3) {
+      this.timeoutId = setTimeout(() => {
+        this.search.emit(this.searchQuery);
+      }, 500);
+    }
   }
 }
