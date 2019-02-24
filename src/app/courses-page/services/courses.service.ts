@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 import { Course } from '../course';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { LoaderService } from 'src/app/core/services/loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,12 @@ export class CoursesService {
   private _courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
   private courses: Observable<Course[]> = this._courses.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loader: LoaderService) {
   }
 
   loadCourses(page, limit) {
     const url = `courses?_page=${page}&_limit=${limit}`;
+    this.loader.showLoader();
 
     this.http.get(url).subscribe((courses: any) => {
       this._courses.next(
@@ -25,6 +27,8 @@ export class CoursesService {
           creationDate: new Date(course.creationDate)
         })))
       );
+
+      this.loader.hideLoader();
     });
   }
 
@@ -44,6 +48,7 @@ export class CoursesService {
 
   searchCourses(query: string, page, limit) {
     const url = `courses?_page=${page}&_limit=${limit}&q=${query}`;
+    this.loader.showLoader();
 
     this.http.get(url).subscribe((courses: any) => {
       this._courses.next(
@@ -52,6 +57,8 @@ export class CoursesService {
           creationDate: new Date(course.creationDate)
         })))
       );
+
+      this.loader.hideLoader();
     });
   }
 

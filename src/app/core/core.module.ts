@@ -10,6 +10,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './services/loader.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     NavigationComponent,
     LogoComponent,
     AuthButtonsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -27,11 +30,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   exports: [
     HeaderComponent,
     FooterComponent,
-    NavigationComponent
+    NavigationComponent,
+    LoaderComponent
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    LoaderService
   ]
 })
 export class CoreModule { }
