@@ -10,6 +10,7 @@ import { LoginPageModule } from './login-page/login-page.module';
 
 import { BaseUrlInterceptor } from './core/interceptors/base-url.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

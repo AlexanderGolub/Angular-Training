@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { LoaderService } from './loader.service';
 
 const storageKey = 'trainingPortalUser';
 
@@ -18,7 +17,7 @@ export class AuthService {
   private _isUserAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private isUserAuthenticated: Observable<boolean> = this._isUserAuthenticated.asObservable();
 
-  constructor(private http: HttpClient, private loader: LoaderService) {
+  constructor(private http: HttpClient) {
     const userInfo = JSON.parse(
       window.localStorage.getItem(storageKey)
     ) || {};
@@ -31,7 +30,6 @@ export class AuthService {
 
   logIn(login: string, password: string) {
     if (login && password) {
-      this.loader.showLoader();
 
       this.http.get('login').subscribe((userInfo: any) => {
         this._userInfo.next({
@@ -40,7 +38,6 @@ export class AuthService {
         });
         this._isUserAuthenticated.next(true);
 
-        this.loader.hideLoader();
         window.localStorage.setItem(storageKey, JSON.stringify(userInfo));
       });
     }

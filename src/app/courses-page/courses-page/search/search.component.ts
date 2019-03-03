@@ -16,7 +16,7 @@ export class SearchComponent {
     this.input.update
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((value) => {
-        if (value.length > 3) {
+        if (value.length > 3 || !value) {
           this.search.emit(value);
         }
       });
