@@ -10,8 +10,8 @@ import { CoursesService } from '../services/courses.service';
 export class EditCoursePageComponent implements OnInit {
   title: string = '';
   description: string = '';
-  date: string = '';
   duration: string = '';
+  courseId: string = '';
 
   constructor(
     private router: Router,
@@ -22,18 +22,26 @@ export class EditCoursePageComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      const course = this.coursesService.getCourseById(params.id);
+      this.coursesService.getCourseById(params.id).subscribe((courses: any) => {
+        const course = courses[0];
 
-      this.title = course.title;
-      this.description = course.description;
-      this.date = course.creationDate.toISOString();
-      this.duration = course.duration.toString();
+        this.courseId = course.id;
+        this.title = course.title;
+        this.description = course.description;
+        this.duration = course.duration.toString();
+      });
     });
   }
 
   onSave() {
-    console.log('save', this.title, this.description, this.date, this.duration);
-    this.router.navigate(['courses']);
+    this.coursesService.updateCourse({
+      id: this.courseId,
+      title: this.title,
+      description: this.description,
+      duration: this.duration
+    }).subscribe(() => {
+      this.router.navigate(['courses']);
+    });
   }
 
   onCancel() {

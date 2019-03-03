@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 const storageKey = 'trainingPortalUser';
 
@@ -16,7 +17,7 @@ export class AuthService {
   private _isUserAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private isUserAuthenticated: Observable<boolean> = this._isUserAuthenticated.asObservable();
 
-  constructor() {
+  constructor(private http: HttpClient) {
     const userInfo = JSON.parse(
       window.localStorage.getItem(storageKey)
     ) || {};
@@ -27,22 +28,19 @@ export class AuthService {
     }
   }
 
-  logIn(login: string, password: string): boolean {
+  logIn(login: string, password: string) {
     if (login && password) {
-      const userInfo = {
-        login: login,
-        token: btoa(login),
-      };
 
-      this._userInfo.next(userInfo);
-      this._isUserAuthenticated.next(true);
+      this.http.get('login').subscribe((userInfo: any) => {
+        this._userInfo.next({
+          login: userInfo.login,
+          token: userInfo.token
+        });
+        this._isUserAuthenticated.next(true);
 
-      window.localStorage.setItem(storageKey, JSON.stringify(userInfo));
-
-      return true;
+        window.localStorage.setItem(storageKey, JSON.stringify(userInfo));
+      });
     }
-
-    return false;
   }
 
   logOut() {
@@ -67,5 +65,9 @@ export class AuthService {
 
   getUserInfo(): Observable<any> {
     return this.userInfo;
+  }
+
+  getAuthToken(): string {
+    return this._userInfo.getValue()['token'];
   }
 }

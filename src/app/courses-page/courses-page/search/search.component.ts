@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -7,10 +8,17 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class SearchComponent {
   @Output() search = new EventEmitter<string>();
+  @ViewChild('input') input;
 
-  searchQuery : string = '';
+  public searchQuery : string = '';
 
-  onSearch() {
-    this.search.emit(this.searchQuery);
+  ngAfterViewInit() {
+    this.input.update
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((value) => {
+        if (value.length > 3 || !value) {
+          this.search.emit(value);
+        }
+      });
   }
 }
