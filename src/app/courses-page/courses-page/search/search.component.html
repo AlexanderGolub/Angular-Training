@@ -5,6 +5,6 @@
     placeholder="Text to search"
     aria-label="Text to search"
     aria-describedby="button-addon2"
-    [ngModel]="searchQuery"
-    (keyup)="onSearch($event)" />
+    #input="ngModel"
+    [ngModel]="searchQuery" />
 </div>
