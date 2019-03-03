@@ -30,6 +30,7 @@ export class AuthService {
 
   logIn(login: string, password: string) {
     if (login && password) {
+
       this.http.get('login').subscribe((userInfo: any) => {
         this._userInfo.next({
           login: userInfo.login,
