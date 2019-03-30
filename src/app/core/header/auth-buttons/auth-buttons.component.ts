@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { LogOut } from 'src/app/actions/authentication.actions';
 
 @Component({
   selector: 'app-auth-buttons',
@@ -11,18 +11,18 @@ import { Router } from '@angular/router';
 export class AuthButtonsComponent implements OnInit {
   public userLogin: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    this.authService.getUserInfo()
-      .subscribe((userInfo) => {
-        this.userLogin = userInfo.login;
+    this.store.select((state) => {
+      return state.authentication.login;
+    })
+      .subscribe((login) => {
+        this.userLogin = login;
       });
   }
 
   onClick() {
-    this.authService.logOut().then(() => {
-      this.router.navigate(['login']);
-    });
+    this.store.dispatch(new LogOut());
   }
 }

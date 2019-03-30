@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '../services/auth.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-navigation',
@@ -10,12 +10,13 @@ import { AuthService } from '../services/auth.service';
 export class NavigationComponent implements OnInit {
   public isAuthenticated: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    this.authService.isAuthenticatedSubscribe()
+    this.store.select((state) => {
+      return state.authentication.isUserAuthenticated;
+    })
       .subscribe((value) => {
-        console.log(value);
         this.isAuthenticated = value;
       });
   }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from 'src/app/core/services/auth.service';
+import { LogIn, StartApplication } from 'src/app/actions/authentication.actions';
 
 @Component({
   selector: 'app-login-page',
@@ -12,18 +13,25 @@ export class LoginPageComponent implements OnInit {
   public login: string = 'Default_login';
   public password: string = 'somepass';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private router: Router, private store: Store<any>) { }
 
   ngOnInit() {
-    this.authService.isAuthenticatedSubscribe()
+    this.store.select((state) => {
+      return state.authentication.isUserAuthenticated;
+    })
       .subscribe((value) => {
         if (value) {
           this.router.navigate(['courses']);
         }
       });
+
+    this.store.dispatch(new StartApplication());
   }
 
   logIn() {
-    this.authService.logIn(this.login, this.password);
+    this.store.dispatch(new LogIn({
+      login: this.login,
+      password: this.password
+    }));
   }
 }
