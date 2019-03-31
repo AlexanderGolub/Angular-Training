@@ -1,35 +1,43 @@
-<form class="root">
+<form class="root" [formGroup]="courseForm">
   <div class="form-group">
     <label for="title">Title</label>
     <input
       type="email"
       class="form-control"
       id="title"
-      name="title"
       placeholder="Title"
-      [(ngModel)]="title" />
+      formControlName="title" />
+    <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+      <div *ngIf="title.errors.required">
+        Title is required.
+      </div>
+      <div *ngIf="title.errors.maxlength">
+        Title is too long.
+      </div>
+    </div>
   </div>
   <div class="form-group">
     <label for="description">Description</label>
     <textarea
       class="form-control"
       id="description"
-      name="description"
       placeholder="Description"
-      [(ngModel)]="description">
+      formControlName="description">
     </textarea>
+    <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+      <div *ngIf="description.errors.required">
+        Description is required.
+      </div>
+      <div *ngIf="description.errors.maxlength">
+        Description is too long.
+      </div>
+    </div>
   </div>
   <div class="form-group">
-    <label for="description">Duration</label>
-    <input
-      class="form-control"
-      id="duration"
-      name="duration"
-      placeholder="Duration"
-      [(ngModel)]="duration" />
+    <app-duration-input formControlName="duration"></app-duration-input>
   </div>
   <div class="buttons-container">
-    <button class="btn btn-primary" (click)="onSave()">Apply</button>
+    <button class="btn btn-primary" (click)="onSave()" [disabled]="!courseForm.valid">Apply</button>
     <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
   </div>
 </form>
