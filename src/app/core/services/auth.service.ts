@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 const storageKey = 'trainingPortalUser';
 
@@ -12,10 +13,6 @@ export class AuthService {
     login: '',
     token: ''
   });
-  private userInfo: Observable<object> = this._userInfo.asObservable();
-
-  private _isUserAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private isUserAuthenticated: Observable<boolean> = this._isUserAuthenticated.asObservable();
 
   constructor(private http: HttpClient) {
     const userInfo = JSON.parse(
@@ -24,50 +21,40 @@ export class AuthService {
 
     if (userInfo.token) {
       this._userInfo.next(userInfo);
-      this._isUserAuthenticated.next(true);
     }
   }
 
-  logIn(login: string, password: string) {
+  initialize() {
+    const userInfo = JSON.parse(
+      window.localStorage.getItem(storageKey)
+    ) || {
+      login: '',
+      token: '',
+    };
+
+    return of(userInfo);
+  }
+
+  logIn(login: string, password: string): Observable<any> {
     if (login && password) {
+      return this.http.get('login').pipe(
+        map((userInfo: any) => {
+          window.localStorage.setItem(storageKey, JSON.stringify(userInfo));
 
-      this.http.get('login').subscribe((userInfo: any) => {
-        this._userInfo.next({
-          login: userInfo.login,
-          token: userInfo.token
-        });
-        this._isUserAuthenticated.next(true);
-
-        window.localStorage.setItem(storageKey, JSON.stringify(userInfo));
+          return userInfo;
+        })
+      );
+    } else {
+      return of({
+        login: '',
+        token: '',
       });
     }
   }
 
   logOut() {
-    this._userInfo.next({
-      login: '',
-      token: '',
-    });
-    this._isUserAuthenticated.next(false);
-
     return Promise.resolve(
       window.localStorage.removeItem(storageKey)
     );
-  }
-
-  isAuthenticatedSubscribe(): Observable<boolean> {
-    return this.isUserAuthenticated;
-  }
-
-  isAuthenticated(): boolean {
-    return this._isUserAuthenticated.getValue();
-  }
-
-  getUserInfo(): Observable<any> {
-    return this.userInfo;
-  }
-
-  getAuthToken(): string {
-    return this._userInfo.getValue()['token'];
   }
 }

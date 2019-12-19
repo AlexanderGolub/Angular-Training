@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +14,10 @@ import { LoginPageModule } from './login-page/login-page.module';
 import { BaseUrlInterceptor } from './core/interceptors/base-url.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
+
+import { reducers, metaReducers } from './reducers';
+import { environment } from '../environments/environment';
+import { AuthenticationEffects } from './effects/authentication.effects';
 
 @NgModule({
   declarations: [
@@ -23,6 +30,9 @@ import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
     CoreModule,
     CoursesPageModule,
     LoginPageModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([AuthenticationEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },
