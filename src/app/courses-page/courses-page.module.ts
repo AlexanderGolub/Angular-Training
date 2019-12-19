@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoursesPageComponent } from './courses-page/courses-page.component';
 import { NewCoursePageComponent } from './new-course-page/new-course-page.component';
 import { CourseComponent } from './courses-page/course/course.component';
@@ -13,6 +13,8 @@ import { SearchPipe } from './pipes/search.pipe';
 import { CoursesService } from './services/courses.service';
 import { RouterModule } from '@angular/router';
 import { EditCoursePageComponent } from './edit-course-page/edit-course-page.component';
+import { DurationInputComponent } from './edit-course-page/duration-input/duration-input.component';
+import { DurationValidatorDirective } from './edit-course-page/duration-input/duration-validator.directive';
 
 @NgModule({
   declarations: [
@@ -25,11 +27,14 @@ import { EditCoursePageComponent } from './edit-course-page/edit-course-page.com
     OrderByPipe,
     SearchPipe,
     NewCoursePageComponent,
-    EditCoursePageComponent
+    EditCoursePageComponent,
+    DurationInputComponent,
+    DurationValidatorDirective
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule
   ],
   exports: [
